@@ -1,6 +1,8 @@
 package com.example.managerproject;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -14,10 +16,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class AdapterNhanVien extends BaseAdapter {
-    Context context;
+    Activity context;
     ArrayList<NhanVien>list;
 
-    public AdapterNhanVien(Context context, ArrayList<NhanVien> list) {
+    public AdapterNhanVien(Activity context, ArrayList<NhanVien> list) {
         this.context = context;
         this.list = list;
     }
@@ -53,6 +55,14 @@ public class AdapterNhanVien extends BaseAdapter {
         txtSdt.setText(nhanVien.sdt);
         Bitmap bmHinhDaiDien = BitmapFactory.decodeByteArray(nhanVien.anh, 0,nhanVien.anh.length);
         imgHinhDaiDien.setImageBitmap(bmHinhDaiDien);
+        btnsua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,UpdateActivity.class);
+                intent.putExtra("ID",nhanVien.id);
+                context.startActivity(intent);
+            }
+        });
         return row;
     }
 }
